@@ -1,0 +1,197 @@
+﻿@model Homer_MVC.Models.CommonViewsModel.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<div class="background-image"></div>
+
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <span class="me-3">📞 +(506) 2268 8037</span>
+            <span class="me-3">✉️ lic.desanisidro@mep.go.cr</span>
+            <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+        </div>
+    </div>
+</header>
+
+<!-- Nombre del colegio -->
+<div class="container-fluid my-4 d-flex align-items-center" style="margin-left: -15px;">
+    <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+    <h2 class="fw-bold mb-0">Liceo de San Isidro</h2>
+</div>
+
+<!-- Formulario de inicio de sesión centrado -->
+<div class="d-flex align-items-center justify-content-center" style="height: 60vh;">
+    <div class="login-container text-center shadow p-4">
+        <h3 class="text-primary">Módulo de asistencias</h3>
+        <h4 class="mt-4 mb-4">Inicio de sesión</h4>
+
+        @* Mensaje de Éxito *@
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success validation-summary">
+                <ul>
+                    <li>@TempData["SuccessMessage"]</li>
+                </ul>
+            </div>
+        }
+
+        @* Mensajes de Error *@
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger validation-summary">
+                @Html.ValidationSummary(false)
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "CommonViews", FormMethod.Post, new { id = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                @Html.LabelFor(m => m.Usuario)
+                @Html.TextBoxFor(m => m.Usuario, new { @class = "form-control", placeholder = "Usuario", required = true })
+                @Html.ValidationMessageFor(m => m.Usuario, "", new { @class = "text-danger" })
+            </div>
+            <div class="mb-4">
+                @Html.LabelFor(m => m.Contraseña)
+                @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control", placeholder = "Contraseña", required = true })
+                @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+        }
+    </div>
+</div>
+
+<!-- Botón de Administrador en la esquina inferior derecha -->
+<div class="mt-4">
+    <a href="@Url.Action("Login2", "CommonViews")" class="btn btn-outline-primary w-100 mb-3">Profesor</a>
+    <a href="@Url.Action("Login", "CommonViews")" class="btn btn-outline-warning w-100">Administrador</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+@section Styles {
+    <style>
+
+
+            body {
+                font-family: Arial, sans-serif;
+                color: #000a42;
+                position: relative;
+                overflow: hidden;
+            }
+            /* Contenedor de la imagen de fondo difusa */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+             background-image: url('@Url.Content("~/Images/fondo.jpg")');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px); /* Desenfoque de la imagen de fondo */
+            z-index: -1;
+        }
+            /* Estilos del contenido principal */
+            .content-container {
+                position: relative;
+                z-index: 1;
+            }
+            /* Fondo del formulario con color opaco */
+            .login-container {
+                width: 350px;
+                background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+                border: 2px solid #cbb70a;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            h2, h3, h4 {
+                color: #000a42;
+            }
+            /* Estilos del encabezado */
+            header {
+                background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            }
+
+            .header-content {
+                font-size: 1.2rem;
+            }
+
+            .school-name h2 {
+                font-size: 2rem;
+                color: #fff;
+            }
+            /* Estilos del formulario */
+            form .form-control {
+                border: 1px solid #cbb70a;
+                font-size: 1rem;
+                padding: 10px;
+            }
+
+            form .btn-primary {
+                background-color: #000a42;
+                border: none;
+                font-weight: bold;
+            }
+
+                form .btn-primary:hover {
+                    background-color: #cbb70a;
+                    color: white;
+                }
+            /* Estilo del contenedor del formulario */
+            .d-flex.align-items-center.justify-content-center {
+                height: 60vh;
+            }
+
+            .validation-summary {
+                margin: 20px 0;
+                padding: 15px;
+                border-radius: 4px;
+            }
+
+                .validation-summary ul {
+                    list-style: none;
+                    padding-left: 0;
+                    margin-bottom: 0;
+                }
+
+            .alert-success.validation-summary {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+
+            .alert-danger.validation-summary {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+
+            .text-danger {
+                display: block;
+                margin-top: 5px;
+                color: #dc3545;
+            }
+            /* Estilo adicional para el botón */
+            .position-fixed {
+                position: fixed !important;
+            }
+
+            .bottom-0 {
+                bottom: 0 !important;
+            }
+
+            .end-0 {
+                right: 0 !important;
+            }
+
+            .m-3 {
+                margin: 1rem !important;
+            }
+    </style>
+}

@@ -1,0 +1,191 @@
+﻿@model Homer_MVC.Models.DashboardModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="background-image"></div>
+
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <span class="me-3">📞 +(506) 2268 8037</span>
+            <span class="me-3">✉️ lic.desanisidro@mep.go.cr</span>
+            <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+        </div>
+    </div>
+</header>
+
+<!-- Nombre del colegio -->
+<div class="container-fluid my-4 d-flex align-items-center" style="margin-left: -15px;">
+    <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+    <h2 class="fw-bold mb-0">Liceo de San Isidro</h2>
+</div>
+
+<!-- Sección principal -->
+<div class="container">
+    <div class="card profile-container">
+        <div class="card-body">
+            <h3 class="text-primary text-center">Módulo de Asistencias</h3>
+
+            @* Mensaje de Éxito *@
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success validation-summary">
+                    <ul>
+                        <li>@TempData["SuccessMessage"]</li>
+                    </ul>
+                </div>
+            }
+
+            @* Mensajes de Error *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger validation-summary">
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+
+            <!-- Opciones de registro -->
+            <div class="register-section">
+                <div class="section-box">
+                    <h5 class="section-title">Registrar</h5>
+                    <div class="register-options">
+                        <a href="@Url.Action("RegistroProf", "CommonViews")" class="btn custom-btn">Profesor</a>
+                        <a href="@Url.Action("RegistroAlumno", "CommonViews")" class="btn custom-btn">Alumno</a>
+                        <a href="@Url.Action("RegistroMateria", "CommonViews")" class="btn custom-btn">Materia</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Elementos flotantes -->
+<div class="fixed-bottom-elements">
+    <div class="profile-text">Perfil: Administrador</div>
+    <a href="@Url.Action("Logoutadmin", "CommonViews")" class="btn logout-btn">Cerrar Sesión</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+@section Styles {
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000a42;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('~/Images/fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .profile-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .section-box {
+            text-align: center;
+            border-top: 2px solid #cbb70a;
+            padding-top: 20px;
+            margin: 20px 5px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #000a42;
+            font-size: 1.2rem;
+        }
+
+        .custom-btn {
+            display: inline-block;
+            width: auto;
+            margin: 15px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #cbb70a;
+            border: 2px solid #cbb70a;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+            .custom-btn:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+
+        .validation-summary {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+            .validation-summary ul {
+                list-style: none;
+                padding-left: 0;
+                margin-bottom: 0;
+            }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .fixed-bottom-elements {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .profile-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #000a42;
+        }
+
+        .logout-btn {
+            background-color: #cbb70a;
+            border: 2px solid #cbb70a;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .logout-btn:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+    </style>
+}

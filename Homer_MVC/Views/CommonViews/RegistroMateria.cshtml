@@ -1,0 +1,171 @@
+﻿@model Homer_MVC.Models.MateriaViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "Registro de Materia";
+}
+
+<div class="background-image"></div>
+
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <span class="me-3">📞 +(506) 2268 8037</span>
+            <span class="me-3">✉️ lic.desanisidro@mep.go.cr</span>
+            <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+        </div>
+    </div>
+</header>
+
+<!-- Nombre del colegio -->
+<div class="container-fluid my-4 d-flex align-items-center" style="margin-left: -15px;">
+    <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+    <h2 class="fw-bold mb-0">Liceo de San Isidro</h2>
+</div>
+
+<!-- Formulario de Registro de Materias -->
+<div class="container">
+    <div class="card profile-container">
+        <div class="card-body">
+            <h3 class="text-primary text-center">Registro de Materias</h3>
+
+            @* Mensaje de Éxito *@
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success validation-summary">
+                    <ul>
+                        <li>@TempData["SuccessMessage"]</li>
+                    </ul>
+                </div>
+            }
+
+            @* Mensajes de Error *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger validation-summary">
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+
+            @using (Html.BeginForm("Registrodemateria", "CommonViews", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Usuarioprofe, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Usuarioprofe, new { @class = "form-control", placeholder = "Usuario del Profesor", required = true })
+                        @Html.ValidationMessageFor(m => m.Usuarioprofe, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Nombre de la Materia", required = true })
+                        @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Grado, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Grado, new { @class = "form-control", placeholder = "Grado", required = true })
+                        @Html.ValidationMessageFor(m => m.Grado, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Grupo1, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Grupo1, new { @class = "form-control", placeholder = "Grupo", required = true })
+                        @Html.ValidationMessageFor(m => m.Grupo1, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.DiaSemana, new { @class = "form-label" })
+                        @Html.DropDownListFor(m => m.DiaSemana, new SelectList(new[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" }, ""), new { @class = "form-control", required = true })
+                        @Html.ValidationMessageFor(m => m.DiaSemana, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.HoraInicio, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.HoraInicio, new { @class = "form-control", type = "time", required = true })
+                        @Html.ValidationMessageFor(m => m.HoraInicio, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.HoraFin, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.HoraFin, new { @class = "form-control", type = "time", required = true })
+                        @Html.ValidationMessageFor(m => m.HoraFin, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Registrar Materia</button>
+            }
+        </div>
+    </div>
+</div>
+<a href="@Url.Action("Index", "Dashboard")" class="btn btn-secondary fixed-bottom end-0 me-3 mb-3">Volver</a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+@section Styles {
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000a42;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('~/Images/fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+        }
+
+        .profile-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #000a42;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #cbb70a;
+                color: white;
+            }
+
+        .validation-summary {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+            .validation-summary ul {
+                list-style: none;
+                padding-left: 0;
+                margin-bottom: 0;
+            }
+
+        .alert-success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .text-danger {
+            display: block;
+            margin-top: 5px;
+            color: #dc3545;
+        }
+    </style>
+}

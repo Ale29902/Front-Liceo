@@ -1,0 +1,128 @@
+﻿@model Homer_MVC.Models.SeleccionarDiaViewModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "menuProfe";
+}
+
+<header class="bg-dark text-white">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <span class="me-3">📞 +(506) 2268 8037</span>
+            <span class="me-3">✉️ lic.desanisidro@mep.go.cr</span>
+            <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+        </div>
+    </div>
+</header>
+
+<div class="container-fluid my-4 d-flex align-items-center">
+    <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+    <h2 class="fw-bold mb-0 text-primary">Liceo de San Isidro</h2>
+</div>
+
+<!-- Sección principal -->
+<div class="container">
+    <div class="card profile-container">
+        <div class="card-body">
+            <h3 class="text-primary text-center">Módulo de Asistencias</h3>
+
+            <!-- Formulario -->
+            <form action="@Url.Action("MenuProfe", "Dashboard")" method="post">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label">Día de la Semana</label>
+                        <select name="DiaSemana" class="form-select">
+                            <option value="">Seleccione un día</option>
+                            <option value="Lunes">Lunes</option>
+                            <option value="Martes">Martes</option>
+                            <option value="Miércoles">Miércoles</option>
+                            <option value="Jueves">Jueves</option>
+                            <option value="Viernes">Viernes</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn custom-btn">Seleccionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="fixed-bottom-elements">
+    <div class="profile-text">Perfil: Profesor</div>
+    <a href="@Url.Action("Logoutprof", "CommonViews")" class="btn logout-btn">Cerrar Sesión</a>
+</footer>
+
+@section Styles {
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000a42;
+            position: relative;
+        }
+
+        .profile-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #000a42;
+            font-size: 1.1rem;
+        }
+
+        .custom-btn {
+            background-color: #cbb70a;
+            border: 2px solid #cbb70a;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .custom-btn:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+
+        .fixed-bottom-elements {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .profile-text {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #000a42;
+        }
+
+        .logout-btn {
+            background-color: #cbb70a;
+            border: 2px solid #cbb70a;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+            .logout-btn:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+    </style>
+}

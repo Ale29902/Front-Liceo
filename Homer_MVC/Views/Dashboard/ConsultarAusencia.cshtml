@@ -1,0 +1,160 @@
+﻿@model Homer_MVC.Models.ConsultarAsistenciaViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ConsultarAsistencia";
+}
+
+<!-- Bootstrap y estilos -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+
+<!-- Header superior oscuro -->
+<header class="bg-dark text-white py-2">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <span class="me-3">📞 +(506) 2268 8037</span>
+            <span class="me-3">✉ lic.desanisidro@mep.go.cr</span>
+            <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+        </div>
+    </div>
+</header>
+
+<!-- Logo y título -->
+<div class="container-fluid my-4 d-flex align-items-center">
+    <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+    <h2 class="fw-bold mb-0">Liceo de San Isidro</h2>
+</div>
+
+<!-- Título principal -->
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Estado de Asistencia</h4>
+    </div>
+    <div class="card-body">
+        <!-- Información del encabezado -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <strong>Profesor:</strong> @ViewBag.nombreprofe
+            </div>
+            <div class="col-md-4">
+                <strong>Día:</strong> @ViewBag.dia
+            </div>
+            <div class="col-md-4">
+                <strong>Materia:</strong> @ViewBag.materia
+            </div>
+        </div>
+
+        <!-- Fecha -->
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <strong>Fecha:</strong> @ViewBag.FechaToString("dd/MM/yyyy")
+            </div>
+        </div>
+
+        @if (Model.ausencias != null && Model.ausencias.Any())
+        {
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ausencia in Model.ausencias)
+                    {
+                        <tr>
+                            <td>@ausencia.nombre_Alumno</td>
+                            <td>@ausencia.apellido1</td>
+                            <td>@ausencia.apellido2</td>
+                            <td>
+                                <span class="badge @(ausencia.estado == "Presente" ? "bg-success" :
+                                                   ausencia.estado == "Ausente" ? "bg-danger" :
+                                                   ausencia.estado == "Tardío" ? "bg-warning" : "bg-secondary")">
+                                    @(string.IsNullOrEmpty(ausencia.estado) ? "No registrado" : ausencia.estado)
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                No hay registros de asistencia disponibles.
+            </div>
+        }
+
+        <!-- Botones de control -->
+        <div class="d-flex justify-content-between">
+
+            <a href="@Url.Action("borrardatosfecha", "Dashboard")" class="btn btn-outline-secondary">Volver</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<footer class="bg-light py-3 mt-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>Perfil: Profesor</div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+<!-- Estilos adicionales -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #000a42;
+        margin-bottom: 60px;
+    }
+
+    header {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .container-fluid img:hover {
+        transform: scale(1.1);
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    footer {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .btn-outline-secondary {
+        color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+    .table-dark {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+</style>

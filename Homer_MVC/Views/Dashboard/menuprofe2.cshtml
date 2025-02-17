@@ -1,0 +1,138 @@
+﻿@model Homer_MVC.Models.ObtenergruposModel
+@{
+    Layout = "~/Views/Shared/_Layout_Blank.cshtml";
+    ViewBag.Title = "MenuProfe2";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Asistencias</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000a42;
+            position: relative;
+            margin-bottom: 60px; /* Espacio para el footer */
+        }
+
+        .footer-bar {
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-volver {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: #ffc107;
+            color: #000a42;
+            border: 2px solid #ffc107;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .btn-volver:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+
+        .logout-btn {
+            background-color: #ffc107;
+            color: #000a42;
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid #ffc107;
+        }
+
+            .logout-btn:hover {
+                background-color: #000a42;
+                color: #ffffff;
+                border-color: #000a42;
+            }
+
+        .profesor-info {
+            font-weight: bold;
+            color: #000a42;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="bg-dark text-white">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <span class="me-3">📞 +(506) 2268 8037</span>
+                <span class="me-3">✉ lic.desanisidro@mep.go.cr</span>
+                <span>📍 C. Rojas, Sector María Auxiliadora, Heredia, San Isidro, Costa Rica</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Encabezado secundario -->
+    <div class="container-fluid my-4 d-flex align-items-center">
+        <img src="~/Images/logo.png" alt="Logo Liceo de San Isidro" height="50" class="me-2">
+        <h2 class="fw-bold mb-0">Liceo de San Isidro</h2>
+    </div>
+
+    <!-- Información del Profesor -->
+    <div class="container mb-4">
+        <h5 class="profesor-info">Profesor: @ViewBag.nombreprofe</h5>
+    </div>
+
+    <!-- Contenido principal -->
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-primary text-center">Módulo de Asistencias</h3>
+                        @using (Html.BeginForm("Selecciongrupo", "Dashboard", FormMethod.Post))
+                        {
+                            <div class="form-group mb-3">
+                                <label class="form-label">Seleccione una Materia</label>
+                                @Html.DropDownList("Id_Materia",
+                                    (SelectList)ViewBag.Materias,
+                                    "Seleccione una materia",
+                                    new { @class = "form-control" })
+                            </div>
+                            <button type="submit" class="btn btn-primary">  Seleccionar</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Volver -->
+    <a href="@Url.Action("borrardatosgrupo", "Dashboard")" class="btn btn-volver">Volver</a>
+
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+        <div class="profesor-info">Perfil: Profesor</div>
+        <a href="@Url.Action("Logoutprof", "CommonViews")" class="logout-btn">Cerrar Sesión</a>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
